@@ -19,12 +19,12 @@ export default class IFrameCommunication extends Component {
         return false;
     }
 
-    onSend() {
+    onSend = () => {
         if (this.input.current.value) {
-            this.bellhop.send('products', [this.input.current.value]);
+            this.bellhop.send('ehrs', [this.input.current.value]);
             this.input.current.value = '';
         }
-    }
+    };
 
     componentDidMount() {
         this.bellhop.connect(this.iframe.current);
@@ -39,17 +39,17 @@ export default class IFrameCommunication extends Component {
                         <input
                             ref={this.input}
                             type='text'
-                            placeholder='Add item from React'
+                            placeholder='Add EHR from React'
                         />
                         <button
-                            onClick={this.onSend.bind(this)}
+                            onClick={this.onSend}
                             className='btn btn-primary'>
                             Send to webapp
                         </button>
                     </div>
                 </section>
 
-                <section className='iframe-demo-row'>
+                <section className='iframe-wrapper'>
                     <iframe
                         id={'webapp'}
                         frameBorder={0}
