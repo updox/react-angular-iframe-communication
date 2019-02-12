@@ -44,20 +44,18 @@ export default class IFrameCommunication extends Component {
                         <button
                             onClick={this.onSend.bind(this)}
                             className='btn btn-primary'>
-                            Send to iframe
+                            Send to webapp
                         </button>
                     </div>
                 </section>
 
                 <section className='iframe-demo-row'>
-                    Angular iFrame
                     <iframe
-                        id={'iframe-ng'}
-                        onLoad={() => {}}
+                        id={'webapp'}
                         frameBorder={0}
                         scrolling={'no'}
                         ref={this.iframe}
-                        src='/assets/ng/ng.html'
+                        src='http://localhost:8080/ui/html/index.html#/inbox'
                     />
                 </section>
             </main>
