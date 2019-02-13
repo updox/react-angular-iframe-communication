@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Bellhop } from 'bellhop-iframe';
 
 /**
@@ -9,16 +9,32 @@ import { Bellhop } from 'bellhop-iframe';
 export default class IFrameCommunication extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+
         this.input = React.createRef();
         this.iframe = React.createRef();
         this.bellhop = new Bellhop();
+
+        this.state = {
+            practiceName: null,
+        };
     }
 
-    shouldComponentUpdate() {
-        return false;
+    componentDidMount() {
+        this.bellhop.connect(this.iframe.current);
+
+        this.bellhop.on('AuthUser', event =>
+            this.setState({ practiceName: event.data.practiceName }),
+        );
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('nextProps - ', nextProps);
+        if (this.props !== nextProps) {
+            console.log('updated');
+        }
+    }
+
+    // Sender function sends 'ehrs' type down to iframe
     onSend = () => {
         if (this.input.current.value) {
             this.bellhop.send('ehrs', [this.input.current.value]);
@@ -26,15 +42,11 @@ export default class IFrameCommunication extends Component {
         }
     };
 
-    componentDidMount() {
-        this.bellhop.connect(this.iframe.current);
-    }
-
     render() {
         return (
             <main>
-                <section className='iframe-demo-row'>
-                    React Control
+                <section className='iframe-demo-row--small'>
+                    {this.state.practiceName && this.state.practiceName}
                     <div className='form-group'>
                         <input
                             ref={this.input}
@@ -62,5 +74,3 @@ export default class IFrameCommunication extends Component {
         );
     }
 }
-
-IFrameCommunication.defaultProps = {};
