@@ -9,6 +9,11 @@
     justify-content: space-between;
     margin-bottom: 20px;
 
+    &--small {
+        width: 50%;
+        margin: 20px auto;
+    }
+
     iframe {
         height: 100vh;
         width: 100%;
@@ -21,6 +26,5 @@
 
 .iframe-wrapper {
     @extend .iframe-demo-row;
-    width: 90%;
-    margin: 0 auto;
+    margin-bottom: 0;
 }
